@@ -24,10 +24,10 @@ public class BookController {
 
 	
 	
-//	
+//	Injecting UserService dependency
 	@Autowired
 	private UserService userService;
-//	
+//	Injecting BookService dependency
 	@Autowired
 	private BookService bookService;
 	
@@ -36,15 +36,15 @@ public class BookController {
 
 		
 		//Create Book
-		// process form
+		// process form for creating new Book
 		@PostMapping("/books/create")
 		public String processBookForm(
 				@Valid @ModelAttribute("newBook") Book newBook, BindingResult result) {
 			if(result.hasErrors()) {
 				return "createBook.jsp";
 			} else {
-				bookService.createBook(newBook);
-				return "redirect:/books";
+				bookService.createBook(newBook); // Create the new book using BookService
+				return "redirect:/books";  // Redirect to the book list page after successful creation
 			}
 		}
 		
@@ -55,10 +55,11 @@ public class BookController {
 		public String dashboard(Model model, HttpSession session) {
 			// Getting User Id
 			if(session.getAttribute("userId") == null) {
+				// If not logged in, redirect to the login page
 				return "redirect:/users/";
 			} model.addAttribute("loggedInUser", userService.getUser((Long)session.getAttribute("userId")));
-			model.addAttribute("bookList", bookService.allBooks());
-			return "dashboard.jsp";
+			model.addAttribute("bookList", bookService.allBooks());  // Get all books using BookService and add them to the model
+			return "dashboard.jsp";  // Return the dashboard view with book list
 		}
 		
 		
@@ -67,7 +68,8 @@ public class BookController {
 		//  Book Details
 		@GetMapping("/books/{id}")
 		public String bookDetails(@PathVariable("id")Long id, Model model) {
-			model.addAttribute("book", bookService.oneBook(id));
+			model.addAttribute("book", bookService.oneBook(id));  // Get the specific book using BookService and add it to the model
+			
 			return "bookDetails.jsp";
 		}
 		
@@ -93,8 +95,9 @@ public class BookController {
 		// Render the form
 		@GetMapping("/books/{id}/edit")
 		public String renderEditBook(@PathVariable("id")Long id, Model model) {
-			Book book = bookService.oneBook(id);
-			model.addAttribute("book", bookService.oneBook(id));
+			
+			Book book = bookService.oneBook(id); // Get the specific book using BookService
+			model.addAttribute("book", bookService.oneBook(id));  // Add the book to the model
 			return "editBook.jsp";
 		}
 		
@@ -104,7 +107,9 @@ public class BookController {
 		// Delete Book 
 		@DeleteMapping("/books/{id}")
 		public String processDelete(@PathVariable("id") Long id) {
+			// Delete the book using BookService
 			bookService.deleteBookById(id);
+			// Redirect to the book list page after successful deletion
 			return "redirect:/books";
 		}
 		

@@ -24,7 +24,7 @@
       <div class="form-group">
         <form:label path="author"> Author: </form:label>
         <form:input  path="author" type="text" class="form-control"  placeholder="Enter Author of Book"/>
-        <form:errors path="author" />
+        <form:errors path="author" style="color: red;" />
       </div>
       <div class="form-group">
         <form:label path="thoughts"> My Thoughts: </form:label>

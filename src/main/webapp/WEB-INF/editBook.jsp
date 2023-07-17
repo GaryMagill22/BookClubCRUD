@@ -19,17 +19,17 @@
       <div class="form-group">
         <form:label path="title"> Title: </form:label>
         <form:input  path="title" type="text" class="form-control"  placeholder="Enter book title"/>
-        <form:errors path="title" />
+        <form:errors path="title" style="color: red;" />
       </div>
       <div class="form-group">
         <form:label path="author"> Author: </form:label>
         <form:input  path="author" type="text" class="form-control"  placeholder="Enter Author of Book"/>
-        <form:errors path="author" />
+        <form:errors path="author" style="color: red;" />
       </div>
       <div class="form-group">
         <form:label path="thoughts"> My Thoughts: </form:label>
         <form:textarea type="textarea" path="thoughts"  class="form-control" placeholder="thoughts..."/>
-        <form:errors path="thoughts" />
+        <form:errors path="thoughts" style="color: red;" />
       </div>
       <button type="submit" class="btn btn-outline-primary">Submit</button>
     </form:form>
